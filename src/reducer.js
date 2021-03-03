@@ -1,5 +1,13 @@
 export const initialState = {
-  basket: [],
+  basket: [
+    {
+      id: '12345',
+      title: "Oh, the Places You'll Go!",
+      price: 18.99,
+      rating: 5.0,
+      image: 'https://images-na.ssl-images-amazon.com/images/I/81YsKZ7EuWL.jpg',
+    },
+  ],
   user: null,
 };
 
@@ -12,9 +20,22 @@ const reducer = (state, action) => {
         basket: [...state.basket, action.item],
       };
     case 'REMOVE_FROM_BASKET':
-      return { state };
+      // we cloned the basket
+      let newBasket = [...state.basket];
+
+      const index = state.basket.findIndex(
+        (basketItem) => basketItem.id === action.id
+      );
+
+      if (index >= 0) {
+        // item exists in basket, remove
+        newBasket.splice(index, 1);
+      } else {
+        console.warn(`Cant remove product (id: ${action.id})`);
+      }
+
+      return { ...state, basket: newBasket };
     default:
-      // don't know what to do.. just return state, leave it as is
       return state;
   }
 };
