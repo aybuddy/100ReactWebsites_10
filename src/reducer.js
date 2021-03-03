@@ -1,13 +1,5 @@
 export const initialState = {
-  basket: [
-    {
-      id: '12345',
-      title: "Oh, the Places You'll Go!",
-      price: 18.99,
-      rating: 5.0,
-      image: 'https://images-na.ssl-images-amazon.com/images/I/81YsKZ7EuWL.jpg',
-    },
-  ],
+  basket: [],
   user: null,
 };
 
@@ -17,6 +9,11 @@ export const getBasketTotal = (basket) =>
 const reducer = (state, action) => {
   console.log(action);
   switch (action.type) {
+    case 'SET_USER':
+      return {
+        ...state,
+        user: action.user,
+      };
     case 'ADD_TO_BASKET':
       return {
         ...state,
